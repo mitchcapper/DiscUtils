@@ -25,7 +25,7 @@ using System.IO;
 using DiscUtils.Partitions;
 using DiscUtils.Streams;
 
-namespace DiscUtils.LogicalDiskManager;
+namespace DiscUtils.Lvm.LinuxRaid;
 
 internal class LinuxRaidDiskVolume : IDiagnosticTraceable {
 	private readonly PhysicalVolumeInfo _physicalVolume;
@@ -121,6 +121,6 @@ internal class LinuxRaidDiskVolume : IDiagnosticTraceable {
 	}
 
 	private static long AlignDown(long value, long alignment) {
-		return Math.Max(0, (value / alignment) * alignment);
+		return Math.Max(0, value / alignment * alignment);
 	}
 }

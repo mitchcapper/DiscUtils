@@ -24,8 +24,8 @@ using System;
 using DiscUtils.Partitions;
 using DiscUtils.Streams;
 
-namespace DiscUtils.LogicalDiskManager;
-
+namespace DiscUtils.Lvm.LinuxRaid;
+using LogicalVolumeStatus=DiscUtils.LogicalVolumeStatus;
 internal class LinuxRaidVolume
 {
     private readonly LinuxRaidDiskGroup _group;
@@ -57,16 +57,16 @@ internal class LinuxRaidVolume
         switch (_group.RaidLevel)
         {
             case 0: // RAID 0 - total of all disks
-                return (long)_group.DiskCount * memberDiskSize;
+                return _group.DiskCount * memberDiskSize;
 
             case 1: // RAID 1 - size of one disk (they're mirrors)
                 return memberDiskSize;
 
             case 5: // RAID 5 - (n-1) * disk_size (one disk for parity)
-                return (long)(_group.DiskCount - 1) * memberDiskSize;
+                return (_group.DiskCount - 1) * memberDiskSize;
 
             case 6: // RAID 6 - (n-2) * disk_size (two disks for parity)
-                return (long)Math.Max(0, _group.DiskCount - 2) * memberDiskSize;
+                return Math.Max(0, _group.DiskCount - 2) * memberDiskSize;
 
             default:
                 // For unknown RAID levels, return the size of the first disk

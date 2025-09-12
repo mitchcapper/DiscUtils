@@ -26,8 +26,9 @@ using System.IO;
 using System.Linq;
 using DiscUtils.Streams;
 
-namespace DiscUtils.LogicalDiskManager;
 
+namespace DiscUtils.Lvm.LinuxRaid;
+using LogicalVolumeStatus=DiscUtils.LogicalVolumeStatus;
 internal class LinuxRaidDiskGroup : IDiagnosticTraceable {
 	private readonly List<LinuxRaidDiskVolume> _disks;
 	private readonly Guid _arrayUuid;
@@ -58,7 +59,7 @@ internal class LinuxRaidDiskGroup : IDiagnosticTraceable {
 		writer.WriteLine();
 
 		writer.WriteLine($"{linePrefix}  MEMBER DISKS");
-		for (int i = 0; i < _disks.Count; i++) {
+		for (var i = 0; i < _disks.Count; i++) {
 			writer.WriteLine($"{linePrefix}    DISK {i}");
 			_disks[i].Dump(writer, $"{linePrefix}      ");
 		}
@@ -76,7 +77,7 @@ internal class LinuxRaidDiskGroup : IDiagnosticTraceable {
 		yield return new LinuxRaidVolume(this);
 	}
 
-	internal LogicalVolumeStatus GetVolumeStatus() => LogicalVolumeStatus.Healthy;
+	internal LogicalVolumeStatus GetVolumeStatus() =>  LogicalVolumeStatus.Healthy;
 
 	internal SparseStream OpenVolume() {
 		switch (_raidLevel) {

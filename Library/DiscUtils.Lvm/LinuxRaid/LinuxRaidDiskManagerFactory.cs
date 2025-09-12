@@ -26,7 +26,7 @@ using System.Security.Cryptography;
 using DiscUtils.Internal;
 using DiscUtils.Partitions;
 
-namespace DiscUtils.LogicalDiskManager;
+namespace DiscUtils.Lvm.LinuxRaid;
 
 [LogicalVolumeFactory]
 internal class LinuxRaidDiskManagerFactory : LogicalVolumeFactory {

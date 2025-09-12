@@ -23,7 +23,7 @@
 using System;
 using DiscUtils.Streams;
 
-namespace DiscUtils.LogicalDiskManager;
+namespace DiscUtils.Lvm.LinuxRaid;
 
 internal class LinuxRaidSuperblock {
 	// Magic identifier for Linux MD RAID
